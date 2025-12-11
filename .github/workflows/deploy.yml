@@ -1,1 +1,91 @@
+name: Run Tests and Deploy Reports
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+
+    # --------------------------
+    # RUN PLAYWRIGHT TESTS
+    # --------------------------
+    - name: Run Playwright Tests (Allure)
+      run: |
+        npx playwright test --reporter=line,allure-playwright
+
+    # --------------------------
+    # GENERATE ALLURE REPORT
+    # --------------------------
+    - name: Generate Allure Report
+      run: |
+        npx allure generate allure-results --clean -o allure-report
+        echo "Allure report created."
+
+    # ------------------------------------------------------
+    # SAVE OLD REPORTS — CREATE TIMESTAMP FOLDER
+    # ------------------------------------------------------
+    - name: Save report with timestamp
+      id: save_report
+      run: |
+        mkdir -p saved-reports
+        TS=$(TZ='Asia/Kolkata' date +"%Y-%m-%d-%H-%M-%S")
+        cp -r allure-report "saved-reports/$TS"
+        rm -rf saved-reports/latest
+        cp -r allure-report saved-reports/latest
+        echo "timestamp=$TS" >> $GITHUB_OUTPUT
+
+    # ====================================================================================
+    # 🚀 DEPLOY TO GITHUB PAGES (ALL REPORTS)
+    # ====================================================================================
+    - name: Setup GitHub Pages
+      uses: actions/configure-pages@v3
+
+    - name: Upload reports folder as Pages artifact
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: saved-reports   # Deploy saved reports
+
+    - name: Deploy to GitHub Pages
+      id: github_pages
+      uses: actions/deploy-pages@v4
+
+    # --------------------------
+    # OUTPUT PUBLIC LINKS
+    # --------------------------
+    - name: Show Report URLs
+      run: |
+        echo "-------------------------------------------------------"
+        echo "🌐 GitHub Pages (Reports Home):"
+        echo "${{ steps.github_pages.outputs.page_url }}/"
+        echo ""
+        echo "🌐 GitHub Pages Latest:"
+        echo "${{ steps.github_pages.outputs.page_url }}/latest/"
+        echo ""
+        echo "🌐 GitHub Pages Old Report:"
+        echo "${{ steps.github_pages.outputs.page_url }}/${{ steps.save_report.outputs.timestamp }}/"
+        echo "-------------------------------------------------------"
 
