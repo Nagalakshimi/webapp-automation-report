@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Automation Report Dashboard</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        h1 { color: #333; }
+        a { display: block; margin: 10px 0; font-size: 18px; }
+    </style>
+</head>
+<body>
+
+<h1>Automation Test Reports</h1>
+
+<p><strong>Latest Report:</strong></p>
+<a href="latest/">🔵 Click here for Latest Report</a>
+
+<p><strong>Old Reports:</strong></p>
+<div id="list"></div>
+
+<script>
+async function loadFolders() {
+    const response = await fetch('./');
+    const text = await response.text();
+
+    const regex = /href="([\d\-]+)\/"/g;
+    let match, html = '';
+
+    while ((match = regex.exec(text)) !== null) {
+        html += `<a href="${match[1]}/">📁 ${match[1]}</a>`;
+    }
+
+    document.getElementById('list').innerHTML = html;
+}
+
+loadFolders();
+</script>
+
+</body>
+</html>
