@@ -1,0 +1,28 @@
+Running admin_scancenter.helper.js
+ 
+========================== Telerad Admin Scancenter ========================
+
+............ Add Scancenter Button is Clicked ..........
+
+Error Notification Checked
+
+After filling 1 field(s): false
+After filling 2 field(s): false
+After filling 3 field(s): false
+After filling 4 field(s): true
+------- Existing Details ---------
+ 
+ Name :Test1234
+ Email Id :test123@example.com
+ Mobile Number :9877712312
+ Address :Test123 Street, Chennai
+
+✅ Row 2 details updated successfully
+------- Updated Details ---------
+ 
+ Updated Name :Test1234
+ Updated Email Id :test123@example.com
+ Updated Mobile Number :9877712312
+ Updated Address :Test123 Street, Chennai
+
+======================================================================================
