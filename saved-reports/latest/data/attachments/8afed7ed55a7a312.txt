@@ -1,0 +1,23 @@
+Running admin_referringdoctor.helper.js
+ 
+========================== Telerad Admin Referring Doctor ========================
+
+............ Add Referring Doctor Button is Clicked ..........
+
+Error Notification Checked
+
+After filling 1 field(s): Add button enabled? → true
+After filling 2 field(s): Add button enabled? → true
+------- Existing Details ---------
+ 
+ Name :Karthik
+ Mobile Number :8888012345
+
+✅ Row 6 details updated successfully
+------- Updated Details ---------
+ 
+ Updated Name :Karthik
+ Updated Mobile Number :8888012345
+
+======================================================================================
+Logout successful
