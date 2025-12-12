@@ -51,11 +51,11 @@ jobs:
     - name: Save report with timestamp
       id: save_report
       run: |
-        mkdir -p saved-reports
+        mkdir -p docs
         TS=$(TZ='Asia/Kolkata' date +"%Y-%m-%d-%H-%M-%S")
-        cp -r allure-report "saved-reports/$TS"
-        rm -rf saved-reports/latest
-        cp -r allure-report saved-reports/latest
+        cp -r allure-report "docs/$TS"
+        rm -rf docs/latest
+        cp -r allure-report docs/latest
         echo "timestamp=$TS" >> $GITHUB_OUTPUT
 
     # ====================================================================================
@@ -67,7 +67,7 @@ jobs:
     - name: Upload reports folder as Pages artifact
       uses: actions/upload-pages-artifact@v2
       with:
-        path: saved-reports   # Deploy saved reports
+        path: docs   # Deploy saved reports
 
     - name: Deploy to GitHub Pages
       id: github_pages
