@@ -1,0 +1,26 @@
+Running admin_doctor.helper.js
+ 
+========================== Telerad Admin Doctor ========================
+
+............ Add Doctor Button is Clicked ..........
+
+Error Notification Checked
+
+After filling 1 field(s): Add button enabled? → false
+After filling 2 field(s): Add button enabled? → false
+After filling 3 field(s): Add button enabled? → false
+After filling 4 field(s): Add button enabled? → true
+------- Existing Details ---------
+ 
+ Name :velu nathan
+ Email Id :ggsg@gmail.com
+ Mobile Number :9766612345
+ Specialization :Spine Surgeon
+
+✅ Row 4 details updated successfully
+------- Updated Details ---------
+ 
+ Updated Name :velu nathan
+ Updated Mobile Number :9766612345
+
+======================================================================================
