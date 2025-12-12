@@ -1,5 +1,0 @@
-✅ Launched login page 
-
-Attempted login with: Email: nivi2311@gmail.com, Password: password
-✅ Dashboard loaded 
-
