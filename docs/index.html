@@ -89,43 +89,5 @@
         <div id="oldReports" class="report-list"></div>
     </div>
 </div>
-
-<script>
-    async function loadReports() {
-        try {
-            // Fetch saved-reports folder
-            const res = await fetch("./saved-reports/");
-            const text = await res.text();
-
-            // Extract timestamp named folders
-            const timestamps = [...text.matchAll(/href="([^"]+)\/"/g)]
-                .map(m => m[1])
-                .filter(name => /^\d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}$/.test(name))
-                .sort()
-                .reverse();
-
-            const container = document.getElementById("oldReports");
-
-            if (timestamps.length === 0) {
-                container.innerHTML = `<p class="empty-text">No old reports found.</p>`;
-                return;
-            }
-
-            timestamps.forEach(ts => {
-                const link = document.createElement("a");
-                link.href = `./saved-reports/${ts}/`;
-                link.target = "_blank";
-                link.textContent = `📁 ${ts}`;
-                container.appendChild(link);
-            });
-
-        } catch (err) {
-            console.error("Error loading old reports", err);
-        }
-    }
-
-    loadReports();
-</script>
-
 </body>
 </html>
